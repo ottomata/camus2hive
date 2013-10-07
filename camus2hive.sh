@@ -29,7 +29,7 @@ command -v hdfs >/dev/null 2>&1 || {
 
 # Param validation
 if [[ $# != 1 ]]; then
-	echo "Usage: $0 camus_destination_dir"
+	echo "Usage: $0 camus_destination_dir [database]"
 	echo ""
 	echo "camus_destination_dir: HDFS path where Camus stores its destination directory."
 	echo ""
@@ -39,10 +39,12 @@ fi
 # Remove trailing slashes (if the supplied path is just / then $CAMUS_DESTINATION_DIR will be empty, but that's ok since commands below always add a slash after anyway...)
 CAMUS_DESTINATION_DIR=`echo $1 | sed -e 's%\(/\)*$%%g'`
 
+HIVE_DATABASE_NAME=${2:-default}
+
 # Behavior config
 REQUERY_HADOOP_DIRS=true
-EXIT_ON_ERROR=false
-PRINT_HIVE_STDERR=false
+EXIT_ON_ERROR=true
+PRINT_HIVE_STDERR=true
 
 # This directory and file hold state for the whole job
 WORK_DIR='temp_camus2hive'
