@@ -28,7 +28,7 @@ command -v hdfs >/dev/null 2>&1 || {
 }
 
 # Param validation
-if [[ $# != 1 ]]; then
+if [[ $# -le 1 ]]; then
 	echo "Usage: $0 camus_destination_dir [database]"
 	echo ""
 	echo "camus_destination_dir: HDFS path where Camus stores its destination directory."
